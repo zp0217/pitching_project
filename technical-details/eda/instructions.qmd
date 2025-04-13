@@ -1,0 +1,97 @@
+
+## EDA
+
+- **Introduction and Motivation:** 
+Before applying methods, it is essential to know the structure of the data. Data types can sometimes be integers, and sometimes they can be categorical variables. If a categorical variable is used, it needs to be modified before analysis. Also, it is important to know overall descriptive statistics; these can be helpful in understanding how data are distributed. 
+The purpose of this section is to explore various plots to get a sense of how the data are formulated. If there is a categorical variable, methods can be adapted to deal with these variables. 
+
+
+- **Overview of Methods:** 
+First, relevant plots will be displayed to show how data are distributed. Second, categorical variables will be explored. For handling categorical variables, one hot coding method will be used. After doing this, plots will be shown to get a sense of how categorical variables are distributed. 
+
+
+
+**Univariate Analysis visualization**:
+
+-**summary statistics table**
+
+| Statistic     | release_speed | release_pos_x | release_pos_z |   pfx_x  | pfx_z    | release_extension |
+|---------------|---------------|---------------|---------------|----------|----------|-------------------|          
+| count         | 167134.0      | 167134.0      | 167134.0      |167134.0  | 167134.0 | 167134.0          |
+| mean          | 89.71         | -0.82         | 5.76          | -0.11    | 0.61     | 6.48              |
+| std           | 5.66          | 1.87          | 0.53          |  0.90    | 0.68     | 0.42              |
+| min           | 71.6          | -4.7          | 0.85          |  -2.29   | -1.96    | 5.4               |
+| 25%           | 85.5          | -2.13         | 5.49          |  -0.89   | 0.17     | 6.2               |
+| 50%           | 90.8          | -1.51         | 5.8           |  -0.16   | 0.65     | 6.5               |
+| 75%           | 94.3          | 0.88          | 6.08          |  0.6     | 1.2      | 6.8               |
+| max           | 105.5         | 4.54          | 7.39          |  2.15    | 2.24     | 7.6               |
+
+: summary statistics  {.striped .hover}
+
+-**histogram for release speed** 
+![](/5000_plots/output3.png)
+
+-**barplot for release speed**
+![](/5000_plots/output4.png)
+
+-**histogram for release spin rate** 
+![](/5000_plots/output7.png)
+
+-**barplot for release spin rate**
+![](/5000_plots/output8.png)
+
+-**histogram for release extension** 
+![](/5000_plots/output11.png)
+
+-**barplot for release extension**
+![](/5000_plots/output12.png)
+
+- **Categorical Variables visualization**:
+-**pie chart for pitch type**
+![](/5000_plots/output17.png)
+
+-**pie chart for breaking ball vs fastball**
+![](/5000_plots/output15.png)
+
+- **Key Insights for univariate analysis**:
+
+
+    These plots and tables offer some insights. First, let's observe the overall distribution of numerical variables. In the data processing section, there were plots before the data cleaning process. Those plots were complicated to say were normally distributed. However, by observing all the plots, all the numerical variables are very close to being normally distributed. 
+For the boxplot, most of the variables erase outliers, but the release spin rate has very few outliers left. Although observing the boxplot seems outlier, considering the context of the release spin rate, it is also logical. Breaking balls tend to have high spin rates, and fastballs tend to have lower spin rates (of course, depending on the pitcher). Considering this context, maintaining these outliers has less tendency to influence overall results in later analysis. Overall, EDA shows that the data-cleaning process was effective. 
+Now, let's move on to pie charts. First, the pie chart shows the pitch type percentage, and the second one shows the breaking ball vs fastball percentage. For the second one, a four-seam fastball and the cutter were considered a fastball, and the rest pitch type was considered a breaking ball. The first pie chart shows that the four-seam fastball took the largest portion, and this makes sense since the four-seam fastball is a ball type that pitchers usually use more frequently than other ball types due to its easier control. 
+The second chart gives an intuition on the summary statistics table. First, let's observe summary statistics. Based on the data that was cleaned in the previous step, the table below is a summary of statistics for numerical variables. As the count shows, there are 167,134 variables left from the data-cleaning process. In this dataset, all the numeral variables are related to ball types. One thing to note is that depending on the ball type, it can influence its speed and movement index(pfx_x,pfx_y). And this makes sense; as we look at the second pie chart, the percentage of breaking balls is 58.9%, while the fastball percentage is 41.1%. So, this might indicate that ball type could influence the summary statistics.
+
+
+
+- **Correlation Analysis heatmap**:
+![](/5000_plots/output16.png)
+
+
+- **Insight in correlation matrix analysis**:
+
+
+Now let's observe the correlation matrix. Five numerical variables were used. And below is a brief description of the variables.
+
+
+Release extension: distance of where pitcher actually release the ball
+
+release speed: velocity of the ball in mph
+
+Release spin rate: ball’s spin while heading to catcher in RPM
+
+pfx_x : horizontal movement of the ball
+
+Pfx_z: vertical movement of the ball
+
+
+Considering this, there are some insights from this correlation matrix heatmap. There is a strong positive correlation between release speed and pfx_z with 0.71. This means that as the velocity increases, there is a possibility that movement in a vertical way could increase. On the contrary, there is a negative correlation between pfx_x and release speed. This means that as the velocity increases, there is a possibility that movement in a horizontal way could decrease. 
+This is a very interesting result. Most of the fastballs aren't moving in a horizontal or vertical way that much; usually, they have less movement. But if we look at the pie chart of pitch types, besides fastballs, sinkers and sliders have the highest percentage. Usually, these two ball types have faster velocity than other pitch types in the pie chart. So, there is a possibility that these two factors might have influenced this correlation matrix. 
+
+
+
+**Conclusions and Next Steps**:
+
+Overall, the EDA process shows various insights. There are interesting insights before starting unsupervised learning and supervised learning.from EDA process there is a factors that could be considered prior to feature selection and data transformation, especially in data transformation, it will need to standardize in pca and clustering process since these two method are sensitive to standardizing.  
+
+
+

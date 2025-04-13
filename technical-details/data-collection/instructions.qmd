@@ -1,0 +1,14 @@
+
+
+
+- **Introduction and Motivation:**
+The purpose of this webpage is to describe the process of getting data for the research question. For analysis, getting the right dataset that corresponds with the purpose of the research question is important. It is evident that if the dataset is completely different compared with the research question, then that research question will not be fulfilled. 
+This analysis is based on baseball pitching analysis that focuses on the outcome of the play. So in this analysis, rather than getting overall baseball statistics such as season reports, a dataset with living pitching data is required.  
+
+- **Overview of dataset:** 
+For this analysis, the Dataset was obtained from Statcast (Baseball Savant), a website most baseball fans use for getting baseball statistics. One of the good things about this website is that it doesn’t just have summary statistics but also live statistics, meaning all the indexes played in live ball, such as ball speed in single pitch, are also included in this website. For the analysis, all ball characteristics are required, so this website provides a good amount of data that could be used for analysis. 
+
+- **Summary method and Results:** 
+To access the dataset in Statcast python API wrapper py baseball was used. Py Baseball is an API wrapper that grants access to the Baseball Savant website and retrieves all the statistics from the website. All I need to do is to set the date of the game. 
+For this analysis, I will use the MLB 2024 season dataset, the 2024 season was from 3/20/2024 to 11/2/2024. By setting this date interval, 742,843 observations were retrieved, which is quite a lot but makes sense since 30 teams are playing roughly 162 games, inside the game there are approximately 120-150 pitches in the game. Also, 113 features were retrieved, and of course, most of the features will not be used since this dataset includes all data, such as game data, and batting data. So, for analysis, the data-cleaning process is essential before applying various statistical methods. 
+

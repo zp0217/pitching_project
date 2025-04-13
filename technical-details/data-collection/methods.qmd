@@ -1,0 +1,6 @@
+# Methods
+
+In this section, retrieving a dataset using API is a key method. However, since I am using a python wrapper called py baseball to get the data, things to be cautious about are getting the right package and setting the right date for the major league season. In my case, I am aiming to get the whole MLB 2024 season.  The real date for the MLB season is from 3/20/2024 to 11/2/2024. 
+
+https://pypi.org/project/baseball-scraper/
+

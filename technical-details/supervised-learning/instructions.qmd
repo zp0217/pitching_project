@@ -1,0 +1,118 @@
+
+## Intro
+
+- **Introduction and Motivation:** 
+This section aims to apply cleaned data to supervised learning to make a predictive model for outs. Supervised learning is expected to determine what feature is important. Also, this section aims to build a predictive model for out and probability model to suggest pitchers notify what pitch index needs to be increased to get the certain probability to “out” the batter. 
+- **Overview of Methods:**
+This section is on supervised learning;   random forest algorithms will be used. Random forest is an ensemble method that combines multiple decision trees to improve performance. Here, the target variable will be out(assigned as 0 if not and one if yes), so it will be a classification. 
+In a random forest, tuning max_depth is important, so max_depth will be several performance plots. Random Forest has two objectives. First is to make a predictive model for the whole dataset to examine what features impact outs and how to classify them. Second is making a predictive model for each cluster that got from k means clustering, to suggest what to improve for each cluster. Also make a probability model using random forest to show in certain probability, to get out, how much the pitching index needs to be improved for pitchers in each cluster.
+
+ 
+## Data Preprocessing
+
+Before going deep into the random forest process, the dataset needs to be divided into features and target variables. In this analysis, out is a binary variable(0 and 1) that indicates whether the play result was out or not. So, this will be divided and assigned as the target variable.Rest of the features are from the previous dataset.
+
+## Model Selection
+
+In this research topic, a random forest was chosen for modeling. Random forest is a supervised learning algorithm used for various applications, such as classification. Random forest is based on the ensemble method, where multiple decision trees are combined to make robust predictions. The advantage of using this algorithm is it is robust in overfitting since it combines trees and averaging. Also, it effectively works with high-dimensional data, which is appropriate for this dataset as it has many features. Lastly, it provides feature importance which can be used for feature selection. There are many features in this dataset, so choosing which feature impacts the most is worthwhile for prediction. @gpt4o_rf 
+
+
+## Training and Testing Strategy
+
+Random forest requires splitting data into training and test data. For this, data was splitted into 80 :20 ratio using train-test split.
+
+## Model Evaluation Metrics
+
+It is important to find out whether a model predicts accurately. There are many metrics to determine, but in this analysis, accuracy, precision, recall, F1 score, and Roc curve will be used for evaluation metrics. 
+The accuracy score is a percentage that shows correct prediction. One of the characteristics for accuracy score is that it works well when data is balanced. If  positive or negative has much more portion, it could be influenced. 
+The second is the precision score. This measures how many predicted positives are actual true positives. 
+ Third metric is F1 score. F1 score is a harmonic mean of precision and recall, evaluating balance between precision and recall. This is specifically useful if the data is imbalanced. 
+The fourth metric is recall. The recall rate is a percentage that measures how many actual positives are correctly identified. 
+Last is the Roc -auc curve. This evaluates classification ability to distinguish two classes. When the roc curve is close to 1, it indicates model classification is very precise.  
+
+## Results
+
+**feature importance plot**
+![](/5000_plots/output_feature_importance.png)
+
+
+**tree plot**
+![](/5000_plots/tree1.png)
+
+
+**roc curve for overall model**
+![](/5000_plots/roc1.png)
+
+
+| Metric                   | Value                  |
+|--------------------------|------------------------|
+| Accuracy                 | 67.4%                  |
+| Negative Recall (Y=0)    | 0.0005961798628786316  |
+| Negative Precision (Y=0) | 0.7222222222222222     |
+| Positive Recall (Y=1)    | 0.9998890072811224     |
+| Positive Precision (Y=1) | 0.6739382513783843     |
+
+: table for training set accuracy evaluation(overall model)
+
+
+| Predicted Negative | Predicted Positive |
+|--------------------|--------------------|
+| 26                 | 43585              |
+| 10                 | 90086              |
+
+:confusion matrix table for training set
+
+
+| Metric                   | Value                  |
+|--------------------------|------------------------|
+| Accuracy                 | 67.24%                 |
+| Negative Recall (Y=0)    | 0.0002740226525392766  |
+| Negative Precision (Y=0) | 0.375                  |
+| Positive Recall (Y=1)    | 0.9997775701766093     |
+| Positive Precision (Y=1) | 0.6724916963404052     |
+
+: table for test set accuracy evaluation(overall model)
+
+
+| Predicted Negative | Predicted Positive |
+|--------------------|--------------------|
+| 3                  | 10945              |
+| 5                  | 22474              |
+
+: confusion matrix table for test set
+
+
+
+**roc curve for each clusters**
+![](/5000_plots/roc2.png)
+
+
+| Cluster | Accuracy | Precision | Recall | F1 Score |
+|---------|----------|-----------|--------|----------|
+|       0 | 0.647419 | 0.647419  | 1.0    | 0.785980 |
+|       1 | 0.665593 | 0.665593  | 1.0    | 0.799226 |
+|       2 | 0.714496 | 0.714496  | 1.0    | 0.833477 |
+: table for accuracy evaluation for each clusters
+
+
+| cluster | release_spin_rate | pfx_x     | pfx_z     | release_speed | release_extension |
+|---------|-------------------|-----------|-----------|---------------|-------------------|
+| 0       | 2587.900          | 0.127     | 1.069     | 99.140        | 6.550             |
+| 1       | 1898.129630       | -0.383280 | 0.347407  | 85.377249     | 6.397619          |
+| 2       | 2534.715993       | 0.446932  | -0.144035 | 83.576551     | 6.410928          |
+: prediction table for probability of 75% to get "out: for each clusters
+
+
+
+The plots and tables in this section show model performance. Before evaluating the model, let's review the feature importance plot. The feature importance plot shows that release speed, vertical movement(pfx_z), sinker, cutter, and release_spin rate are the top five features that are important for classification on "outs."
+Now, for accuracy evaluation, the roc curve for the overall model(not divided into clusters) and the table below shows the overall performance for this random forest model. The ROC curve is 0.55, which is not performing perfectly; it can be interpreted as some improvement, such as using other models can be considered.
+Also, two tables show training and test set performance for the overall model. The table shows that predicting positive is quite accurate, but predicting negative is not accurate. This might be due to an unbalanced proportion of target variables since the out-to-not-out ratio is around 65:35. 
+The Roc curve for each cluster and table show overall performance for each cluster. The Roc curve for each cluster shows a similar AUC value, which indicates that clustering is well distributed. However, all clusters have around 0.55, which indicates that other models should be considered. For the table, the evaluation score is quite stable. Specifically, the F1 score in all clusters has a good score range, around 0.80. This indicates that predictions on clusters are stable. 
+The last table is a prediction table for the probability of a 75% out rate. This means that to get the batter out with a  75% probability, the mean value for the pitching index should be like the value in the table. This can be interpreted in relation to the clustering mean value obtained in unsupervised learning to suggest how much the index pitcher should increase to get a 75% out rate.
+
+
+## Discussion
+
+The overall performance of random forests is not satisfied; it needs improvement for correct analysis. Some methods, such as XG boosting, can increase accuracy, but they require computational cost and correct hyperparameters. 
+Also, the top features that impact "out" are release speed,pfx_z, sinker, cutter, and release spin rate, so these features should be considered when suggesting to pitchers how to get more outs. 
+Lastly, the prediction tables for each cluster are a good example of how much pitchers should increase their ability, so this will be dealt with in the final report. 

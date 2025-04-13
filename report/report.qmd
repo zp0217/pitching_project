@@ -1,0 +1,88 @@
+# Final Report
+
+- **Introduction**: 
+   This study aims to examine the pitcher's ability to get an out count and how to improve the pitcher's ability to get more outs. 
+
+- **Objective**:
+ Baseball has been a popular sport in the past and present and considered as “America's pastime”. Inside baseball, a pitcher's role is crucial since baseball is a sport that fundamentally battles between pitcher and batter. There are 27 outs in the ball game to finish, and the pitcher's ability to end the game smoothly is essential for a win.
+ In theory, the pitcher seems to have an advantage over the batter; if the batter hits more than 0.300, he is considered a great player(3 out of 10.). But in baseball, it is quite common for teams to score more than five runs. At this point, there is a question: why can't pitchers get clean innings even though they seem to have an advantage?  And what can help pitchers get more outs? The goal of conducting this study is to suggest to players how they should train themselves to get more outs.  
+
+- **Methodology Overview**: 
+ In this study, I analyzed baseball statistics data for the MLB 2024 season retrieved from Baseball Savant (https://baseballsavant.mlb.com/statcast_leaderboard ). The overall process for this study was cleaning the data to get only the information that I needed, exploratory analysis using various plots, applying unsupervised learning such as PCA,k means clustering, and DBSCAN clustering, and lastly, applying random forest.
+
+
+- **Key Findings**: 
+
+**pie chart for fastball vs breakingball**
+![](/5000_plots/output15.png)
+
+**pie chart for pitch types**
+![](/5000_plots/output17.png)
+
+**correlation matrix**
+![](/5000_plots/output16.png)
+
+
+| clusters| velocity  | spin rate |  horizontal movement | vertical movement  |release extension|
+|---------| ----------|-----------|--------------------- |--------------------|-----------------|  
+| 0       | 94.156    | 2302.89   |-0.246                |1.157               | 6.527           |
+| 1       | 88.351    | 1968.68   |-0.554                |0.436               | 6.474           |
+| 2       | 83.942    | 2514.77   | 0.430                |-0.082              | 6.396           |
+: cluster table {tbl-colwidths="[75,25]"}
+
+
+| cluster | spin rate |  horizontal movement |  vertical movement| velocity | release_extension |
+|---------|-----------|----------------------|------------------ |----------|-------------------|
+| 0       | 2587.900  | 0.127                | 1.069             | 99.140   |6.550              |
+| 1       | 1898.12963| -0.383280            | 0.347407          | 85.377249| 6.397619          |
+| 2       | 2534.71599| 0.446932             | -0.144035         | 83.576551| 6.410928          |
+: prediction table for probability of 75% to get "out: for each clusters
+
+
+Some interesting findings were drawn from various methods. First, pitch types are quite interesting. In baseball, a four-seam fastball is regarded as the easiest ball to control, so it is evident that pitchers usually throw more than any other ball, which can be assumed there will be more four-seam fastball lead in play(outcome in bat vs pitch). However, in MLB 2024, the four-seam fastball didn’t have a significant amount more than expected. 
+
+Next, the Correlation matrix. The correlation matrix gives quite an interesting result. Here is some brief information about the variables:
+Release extension: distance of where pitcher actually release the ball
+
+
+**release speed: velocity of the ball in mph**
+
+**Release spin rate: ball’s spin while heading to catcher in RPM**
+
+**pfx_x : horizontal movement of the ball**
+
+**Pfx_z: vertical movement of the ball**
+
+
+This matrix explains the relationship between velocity and horizontal and vertical movement. Based on this matrix, movement on the horizontal axis decreases if speed increases. This is very interesting because it reflects real ball-type movement. Fastballs are faster than other ball types but don't have that much movement, some ball types derived from fastballs have movement in horizontal direction(ex. sinker , two seam fastball)but not as much as other ball types. So this reflects the real case in baseball. 
+But what is surprising is the relationship between velocity and vertical movement. Among ball types, the one that has the most vertical movement is the curve ball since the curve ball's trajectory drops from top to bottom(a perfect example in real baseball is Clayton Kershaws's curveball). Usually, ball types that have high velocity don't have much movement in the vertical direction. This can lead to other research questions  such as closer examination on ball movements and its velocity.
+
+Now, let's move on to two tables. Two tables are a good indicator to suggest a pitcher's training strategy.  First, let's observe the first table. First table partitions all observations into three groups.  Three groups have different index values. 
+The first group's mean velocity is 94.156, the spin rate is 2302.89, horizontal movement is -0.246, vertical movement is 1.157, and release extension is 6.527. Based on the context of each pitching index, this pitcher group tends to use the fastball as their main "weapon" to make an outcome versus a batter. Horizontal and vertical movement move in opposite directions as we discussed before, so this also indicates that this group has strength in fastball or fastball related pitch type.
+The second group's mean velocity is in second place, but the spin rate and horizontal movement are the worst. This pitcher group is a group that uses various ball types, mixing fastballs and breaking balls almost equally compared to the first group and considering the context of the pitching index.
+The third group's mean velocity and vertical movement are the lowest, but the spin rate and horizontal movement are the highest. Compared to other groups, this group can be regarded as pitchers who frequently use breaking balls.
+Now let's move on to the second table. Second table is a prediction table for probability of 75% out for each group. This table shows to get out in 75% chance, these average pitching index is recommended to achieve this percentage.
+The MLB average On base percentage for 2024 MLB season is roughly 0.312, which is 31% of on base for batters. So 75% is a good criteria to give pitchers guidance for their training strategy. 
+Let's start with the first group. Second table suggests the pitcher in the first group to increase velocity, spin rate,horizontal movement but decrease vertical movement and release extension. So the suggestion in this group is to enhance their velocity by physical training. 
+For the second group, prediction models suggest pitchers to increase horizontal movement, but rest of them to decrease it. This model is assumed to be a mixture type, so using ball types that have a dramatic horizontal movement will be helpful to get more outs. Example ball types could be sweeper, sliders. 
+For the last group, prediction models suggest an increased spin rate and horizontal movement, but the rest of the index decreases. This type is assumed to be a frequent breaking ball user, so increasing breaking balls that have less movement on vertical movement but have a good spin rate could be a good strategy. Ball types such as sinker could be a good option for this.
+
+
+
+-**societal implication and call to action**:
+
+By conducting this study using various statistical methods there are some interesting findings, especially, this study highlights how pitchers should train to beat batters and get more outs from the batters.
+The findings made some recommendations for training strategies. A different strategy should be used depending on the pitcher’s type. 
+
+- **Conclusion**:  
+Pitchers are usually a symbol of the team. It is important for teams to have good pitchers to win more games. There are many more broad questions that can be conducted, such as situation analysis and injury analysis. From this study, I am hoping that this can give some insight on baseball pitching.
+
+
+
+
+
+
+
+
+
+

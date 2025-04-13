@@ -1,0 +1,153 @@
+
+- **Introduction and Motivation:** 
+Retrieving raw datasets is not a sign to start data analysis; in real-world datasets, it is very rare to have a completely cleaned dataset that is instantly ready to proceed with the analysis. This is the same in this research case: there are more than 110 columns with 700,000 observations and not all information is needed for analysis. So, the goal of this section is to introduce what data cleaning process has been used and how these will be used for further analysis, with an introduction of methods used later. 
+
+
+- **Overview of Methods:** 
+The final goal after this process is to make an instant ready status for data analysis. So, in this step, some methods will be used. First, the dataset filtering process. In this dataset, there are lots of columns that are potentially not useful. So the first step is to filter columns to retrieve only features that I need for further analysis, and the second is to create variables. For further study, a target variable is required for the research question, so a new binary column will be made based on the research question. Third, detecting outliers and NA. it is expected that there will be missing values(NA) since this is based on real-time data, which means if the play doesn’t correspond with the actual play, it will record as NA. depending on the distribution or formation of these, it will be removed or replaced. If there is an outlier, it could cause potential issues depending on the methods. So, outliers will mostly be removed using techniques such as the IQR method. 
+
+
+- **Summary and Interpretation of Results:**
+The dataset is indeed uncleaned, which means that the data cleaning process was required. This step retrieves columns that need further steps, and data is subsetted considering research questions. Also, NA and outliers are successfully removed with enhanced distribution so that it is ready for applying machine learning methods. 
+
+
+
+**Data Cleaning process**:
+1. data information
+The original dataset has 113 columns, and it is evident that not all columns are needed for this analysis. So, based on the research question, there should be a criterion for choosing which columns to extract. 
+This analysis aims to build a predictive model to suggest to pitchers how to get more outs. So, features that are related to pitching are required. Also, it is required to know how the result of the ball played to identify whether it was an out or not. Lastly, MLB has quite a long range of seasons, and this research is based on the MLB2024 regular season, so it is required to subset ones that are not played in the regular season(special events such as all-star games might be included). 
+
+Based on this context, 8 variables were included
+@noauthor_statcast_nodate
+
+Pitch type: The type of pitch derived from Statcast.
+
+
+Release speed: Pitch velocities from 2008-16 are via Pitch F/X
+
+
+Pfx_x: Horizontal movement in feet from the catcher's perspective
+
+
+Pfx_z: Vertical movement in feet from the catcher's perspective.
+
+
+Release_extension: Release extension of pitch in feet as tracked by Statcast.
+
+
+release_spin _rate:  ball Spin rate of pitch tracked by Statcast.
+
+
+event :Event of the resulting Plate Appearance. 
+
+
+Game type: Type of Game. E = Exhibition, S = Spring Training, R = Regular Season, F = Wild Card, D = Divisional Series, L = League Championship Series, W = World Series
+
+2. subsetting data 
+First, inside the event, there are many missing values, which indicate that the same batter is on the plate and the pitching result is not finished. For this analysis, the ball-play result (whether it is an out of the batter went to plate) is needed, so these missing values should be removed. 
+Second, only regular season game data will be used for analysis, so the first subsetting step is to subset data to include only regular season. 
+Next, based on the MLB website’s definition of out, these situations are considered as outs @noauthor_out_nodate:
+
+Strikeout 
+
+Field out 
+
+Sac_fly
+
+force_out 
+
+Grounded into double play
+
+Double play
+
+Strike out double play
+
+Third, in the previous step, outs were defined, and a new column will be created based on the event, if it is considered as out, then it will be assigned as 1, else 0. This will be a target variable for further application. 
+
+
+**Managing Missing Data and outliers**:
+Even though in the previous step, some missing values were removed, but still ,there are a lot of missing values. 
+
+
+| Column Name       |   Missing Value  |
+|-------------------|------------------|
+| pitch_type        | 73               |
+| release_speed     | 73               |
+| pfx_x             | 73               |
+| pfx_z             | 73               |
+| release_extension | 274              |
+| release_spin_rate | 929              |
+| events            | 0                |
+| game_type         | 0                |
+| outs              | 0                |
+: table for  missing value 
+
+Table above shows count on missing value, there are still a lot of missing values, specially on release extension and release spin  rate. Missing value needs to be handled, method will be finding outlier first by observing boxplot and try to remove outlier using IQR method. 
+IQR method is a statistical method to handle outliers by leveraging the spread of the middle 50% of the data @gpt4o_IQR.  
+
+First quartile 1 and 3 is needed:
+Q1 (First Quartile): The value below which 25% of the data falls (25th percentile).
+Q3 (Third Quartile): The value below which 75% of the data falls (75th percentile).
+
+Next upper and lower  bound will be computed
+Lower Bound: Q1− 1.5× IQRQ1 
+Upper Bound: Q3+1.5× IQRQ3 
+finally , Data points falling outside these bounds are considered potential outliers.
+
+**histogram for before and after removing outlier and missing value**
+![](/5000_plots/output.png)
+![](/5000_plots/outpu2.png)
+![](/5000_plots/output3.png)
+![](/5000_plots/output4.png)
+![](/5000_plots/output5.png)
+![](/5000_plots/output6.png)
+![](/5000_plots/output7.png)
+![](/5000_plots/output8.png)
+![](/5000_plots/output9.png)
+![](/5000_plots/output10.png)
+![](/5000_plots/output11.png)
+![](/5000_plots/output12.png)
+
+By observing plots before and after, it is evident that outliers were removed and distribution is very closed to normal distribution, which is a great sign for analysis.
+
+**Managing categorical variable**:
+
+Among variables, pitch type is a categorical variable so this needs to be handled before analysis. So to do this, one hot coding method was used.
+One-hot coding is a method used in machine learning and data preprocessing to convert categorical data into a binary matrix (a matrix of 0s and 1s). This method ensures that each category is represented by a unique vector, making it suitable for algorithms that can’t work with categorical data directly@gpt4o_one_hot.
+
+Steps for one hot coding:
+
+Identify Categories:
+Determine the unique values (categories) in your categorical data, in this case pitch type.
+
+Create Binary Columns:
+For each unique category, create a separate column in the output matrix.
+
+Assign Binary Values:
+Place a 1 in the column corresponding to the category and 0 in all other columns.
+
+by using this method additional columns were made, thes columns represents each pitch type.
+pitch types are used the defintion in MLB website @noauthor_four-seam_nodate-1. all the names are based on MLB website.
+
+| Pitch Type      | Count   |
+|-----------------|---------|
+| FF(four-seam)   |54900    |
+| SI(sinker)      | 30846   |
+| SL(slider)      | 27897   |
+| CH(changeup)    | 15685   |
+| FC(cutter)      | 14021   |
+| ST(sweeper)     | 10156   |
+| CU(curveabll)   | 9252    |
+| KC(knucle curve)| 2769    |
+| FS(splitter)    | 1608    |
+| SV(slurve)      | 531     |
+| SC(screwball)   | 32      |
+| PO(not listed)  | 1       |
+| CS(not listed)  | 1       |
+: table for pitch type and its count
+
+table above is a table that represents counts. for pitch type SV,FA,PO,CS, it is less than 600, which is not significantly useful
+for analysis. so these pitche types will be removed. and all the pitch type column created by one hot coding will be renamed
+based on the MLB website description@noauthor_four-seam_nodate-1.
+
+after this step, all the data cleaning process ended and this data will be used in further analysis.

@@ -1,0 +1,41 @@
+project:
+  type: website
+  resources:
+    - audio
+  render:
+    - "*.qmd"
+    - "*.ipynb"
+    - "!xtra"
+
+website:
+  title: "Final Project: Baseball Pitching Analysis"
+  favicon: "assets/gu-logo.png"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: report/report.qmd
+        text: Report
+      - text: "Technical details"
+        menu: 
+          - text: Data-collection
+            href: technical-details/data-collection/main.ipynb 
+          - text: Data-cleaning
+            href: technical-details/data-cleaning/main.ipynb 
+          - text: Exploratory Data Analysis
+            href: technical-details/eda/main.ipynb 
+          - text: Unsupervised Learning
+            href: technical-details/unsupervised-learning/main.ipynb 
+          - text: Supervised Learning
+            href: technical-details/supervised-learning/main.ipynb 
+          
+
+format:
+  html:
+    theme: cosmo
+    bibliography:   ./assets/references.bib
+    csl:  ./assets/nature.csl
+    toc: true
+
+
+

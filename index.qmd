@@ -1,0 +1,85 @@
+---
+title: "Landing page"
+---
+
+
+
+### About ME
+
+hi, my name is zoo un park. i am a masters student in the data sicence and anayltics program at Georgetown university. 
+I am originally form south korea, studied my undergraduate degree in Minnesota,USA. i love watching and playing sports for my hobbies. lastly, i am 
+in baseball analytics and thinking this as a future career goal
+
+
+### EDUCATION 
+![](/5000_plots/um.png){fig-align="center"}
+
+
+**2021-2024**
+
+**University of Minnesota - Twin Cities, bacehlor of arts in statistics,minor in management**
+
+
+![](/5000_plots/gu.png){fig-align="right"}
+
+**2024-2026** 
+
+**Georgetown University, masters of data sicence and analytics**
+
+### project topic 
+
+As a baseball enthusiast, baseball-related analysis has always been my top priority for project topics. Baseball is regarded as a “statistics sport”; all the plays are recorded and made with statistics. After the 1990s, using statistical methods to make a great team became one of the trends, and in currency days, there are a lot of baseball statistics indexes have been developed, and currently, lots of statisticians are developing much more advanced methods to win the World Series.  
+In baseball, a pitcher is regarded as a “king”; a good pitcher can shut out the game, and analysis on pitching is a very interesting topic. 
+So, for this project, there are some interesting topics that are related to baseball pitching analysis @gpt4o_cluster_topics . 
+
+
+**1. Spin Rate and Pitch Movement**
+Investigate the impact of spin rate on pitch effectiveness, focusing on fastballs or breaking balls.
+Study how changes in spin rate influence vertical or horizontal movement and how hitters respond.
+
+**2. Velocity vs. Location**
+Compare the trade-off between throwing harder and aiming for precise locations.
+Analyze whether high-velocity pitchers are more effective than those who rely on command and control.
+
+**3. Pitch Sequencing**
+Examine how pitchers strategically sequence their pitches to keep hitters off balance.
+Identify patterns in sequences (e.g., fastball followed by a breaking ball) and their effectiveness against different types of hitters.
+
+**4. Predicting Pitch Outcomes Using Advanced Metrics**
+Use advanced metrics like Pitching+, Stuff+, and Location+ to predict outcomes such as strikeouts, ground balls, or fly balls.
+Develop models to identify trends in successful pitching styles.
+
+**5. Effects of Fatigue on Pitching Performance**
+Analyze how performance metrics like velocity, spin rate, and command change over the course of a game or season.
+Study the impact of rest days or pitch counts on effectiveness.
+
+
+All of these questions are very interesting questions, and these questions gave great ideas to build my research idea: 
+
+**Baseball pitching analysis - building a predictive model for getting more outs**
+
+ To win the game, teams must achieve 27 outs(on a nine-inning basis). Fundamental responsibility for getting outs is in pitchers since they are the ones who start playing ball. So, this research question aims to propose to the pitcher what they can do to get more outs. 
+
+### final research question:
+
+**Baseball pitching analysis: building a predictive model for getting more outs**
+
+![](/5000_plots/mlb.png)
+
+
+
+### Literature review
+
+these are some interesting paper literature revies related to this topic
+
+**1. "Evaluating Plate Discipline in Major League Baseball with Bayesian Additive Regression Trees"​**
+
+This study introduced a Bayesian framework to assess decision-making in MLB batters, focusing on when to swing at pitches. Unlike traditional metrics, the model considers contextual factors such as outs, score, and umpire biases. The researchers used Bayesian additive regression trees (BART) to predict outcomes like strike probability, contact probability, and expected runs. Key findings revealed that traditional plate discipline metrics often penalize batters unfairly due to frameable pitches and context ignorance. Their method propagated uncertainties to determine optimal swing/take decisions. A case study using Mike Trout's data highlighted nuanced insights into batter behavior and decision-making efficiency. The model proved superior to traditional and alternative frameworks like EAGLE due to robust uncertainty quantification and integration of dynamic game-state variables(Yee & Deshpande, 2023)  @yee2024evaluating  @gpt4o_literature .
+
+**2. "Using a Sensor-Embedded Baseball to Identify Finger Characteristics Related to Spin Rate and Pitching Velocity in Pitchers"​**
+
+This research utilized a sensor-embedded baseball to examine how finger characteristics (length, strength, and force) influence spin rate and velocity in fastballs. Twenty-one collegiate pitchers participated, with finger strength measured alongside pitching metrics. Significant correlations were found between finger characteristics (like pinch strength and force rate development) and pitching performance. The results emphasized the importance of finger dynamics, as these determine the ball's trajectory and spin. Experimental validation showed that finger strength, especially in the index and middle fingers, plays a pivotal role in both velocity and spin. The study offers a novel perspective on enhancing performance through targeted finger training and technology-driven analysis(Yeh et al., 2024) @yeh2024using  @gpt4o_literature .
+
+**3. "Comparison of the 'Tall and Fall' Versus 'Drop and Drive' Pitching Styles"​**
+
+This comparative analysis explored the biomechanical differences and injury rates between two MLB pitching styles: "Tall and Fall" (TF) and "Drop and Drive" (DD). Among 660 MLB pitchers studied in 2019, TF was more common (62.4%) but associated with a higher rate of upper extremity injuries and ulnar collateral ligament reconstruction (UCLR). The TF style showed more knee extension during pitching, increasing elbow stress and injury risks. In contrast, DD pitchers had more flexed knees, leading to different biomechanical loads. The study highlighted that biomechanics significantly affect pitching-related injuries, suggesting that style adjustments could mitigate risks without compromising performance. Further research was suggested to explore the interplay between mechanics, injury prevention, and pitching performance(Beaudry et al., 2023) @beaudry2023comparison @gpt4o_literature .

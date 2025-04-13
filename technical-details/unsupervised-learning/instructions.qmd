@@ -1,0 +1,104 @@
+## Introduction for this page
+
+-**Introduction and Motivation:** 
+
+This section aims to apply cleaned data to unsupervised learning to look for insight into similarities among data. Unsupervised learning is expected to give insight into patterns of the group and data point’s similarity. However, before that, dimension reduction will be performed since the dimension is expected to be significant even though the dataset was cleaned.
+
+- **Overview of Methods:** 
+
+This section is for performing unsupervised learning. First, there will be a PCA analysis. PCA analysis is an excellent method to reduce dimension. This dataset is very large, so reducing dimensions is a good approach to improve model accuracy. In PCA analysis, tuning how many components will be used is important, so this will be tuned using the scree plot and cumulative variance explained. 
+Next will be unsupervised learning. In this section, k-means and DBSCAN clustering will be used. Kmeans clustering is a very intuitive and robust algorithm for analysis. It is clustered based on the distance of points. Determining how many clusters are needed is essential, so this will be tuned using the elbow method. DBSCAN is a great clustering technique that identifies patterns and detects noise and outliers. By comparing these two methods, one method will be used for later analysis.
+
+
+### Dimensionality Reduction
+1. **PCA (Principal Component Analysis):**
+   - Apply PCA to your dataset.
+   - Determine the optimal number of principal components.
+   - Visualize the reduced-dimensional data.
+   - Analyze and interpret the results.
+
+The primary purpose of using PCA is to reduce dimension. Using data with large dimensions could cause some issues. First, the curse of dimensionality. In High-dimension space, data points are sparse, which makes it difficult to find meaningful patterns. For example, one of the goals of clustering methods is to find patterns, and high dimensions can hinder finding meaningful patterns. Second, computational cost. Having a lot of data points can take a long time due to computational cost, so reducing dimension can make it faster for computation. Third, feature independence. Transforming into uncorrelated with each other could improve model accuracy in classification methods, which will be used later @gpt4o_dimension . 
+The dataset holds more than 100,000 data points, so reducing it can be helpful for further analysis.
+
+First, PCA needs to consider how many components to choose. There are multiple ways to choose for this analysis; it will be chosen by observing the variance explained ratio and cumulative variance explained. Both of them will be determined by observing plots. For the explained variance ratio, when there is a point that dramatically bends, it will be chosen. This point means that after the point where it bends dramatically, there isn't much information to be gained. For the cumulative explained variance, the normal threshold is 0.8 to 0.9; this means that 80 to 90 percent of the variance is kept. 
+
+
+**plot for explained variance ratio**
+![](/5000_plots/output_pca_explained1.png)
+
+**plot for cumulative explained variance**
+![](/5000_plots/output_pca_explained1.png)
+
+
+| principal component | variance explained (%) | cumulative variance explained (%) |
+|---------------------|------------------------|-----------------------------------|
+| PC1                 | 39.49                  | 39.49                             |
+| PC2                 | 20.51                  | 60.00                             |
+| PC3                 | 19.43                  | 79.43                             |
+| PC4                 | 15.14                  | 94.58                             |
+| PC5                 | 5.42                   | 100.00                            |
+
+: **table for PCA result**
+
+The two plots above and the table show the result of PCA. From the first plot, it seems that choosing only one component is ideal since the first plot shows it significantly bends after pc1, and the table also verifies this. For the second plot, choosing four components seems appropriate since, after PC3, it goes all the way to 94%, which is a good indicator for choosing PCs. 
+So, in this case, there are two options: 1 vs 4. It seems that choosing only one can reduce dimension significantly, but reducing dimension significantly could result in loss of information. So, in this case, four PCs will be chosen. Reduced data will be used for clustering analysis.
+
+
+
+### Part 2: Clustering Methods
+
+1. **Clustering Methods:**
+This section aims to apply clustering methods to a dataset that was dimensionally reduced from PCA in the previous part. Two clustering methods, K-means and DBSCAN, will be used in this part. 
+The first method is K-means clustering. K-means clustering is a centroid-based clustering algorithm that divides data into k clusters. Division criterion is based on similarity; similarity can be computed by the points' distance(ex. Euclidean distance, manhattan distance). Clusters are formed near the centroid, where similar points are gathered together. For K-means clustering, how many clusters are needed for partition needs to be tuned before clustering. For this, the elbow method will be applied; if a point significantly bends, that point will be selected @gpt4o_cluster_comparison . 
+
+The second method is DBSCAN clustering. DBSCAN is density-based clustering that identifies clusters as regions of high density separated by regions of low density. This method is especially great for identifying noise and outliers in clustering. The procedure for this algorithm is first choosing a data point and reviewing whether it is density connected(by EPS: radius to search neighboring points). Then,  if the points are not in any clusters, it will be a noise. In this algorithm, tuning EPS is important @gpt4o_cluster_comparison . 
+
+2. **Results Section:**
+
+
+**elbow plot for kmeans clustering**
+![](/5000_plots/output_pca_explained1.png)
+
+**plot for kmeans clustering**
+![](/5000_plots/output_cluster.png)
+
+
+| clusters| speed | spin rate |  pfx_x | pfx_z  |release extension|
+|---------| ------|-----------|--------|--------|-----------------|   
+| 0       | 94.156| 2302.89   |-0.246  |1.157   | 6.527           | 
+| 1       | 88.351| 1968.68   |-0.554  |0.436   | 6.474           | 
+| 2       | 83.942| 2514.77   | 0.430  |-0.082  | 6.396           |
+
+: cluster table {tbl-colwidths="[75,25]"}
+
+
+**plot for DBSCAN clustering**
+![](/5000_plots/output_dbscan.png)
+
+
+|d_clusters| speed | spin rate |  pfx_x | pfx_z  |release extension|
+|--------- | ------|-----------|--------|--------|-----------------|   
+| -1       | 84.315| 2260.493  |-0.007  |-0.063  | 6.395           | 
+| 0        | 89.715| 2289.663  |-0.112  |0.615   | 6.475           | 
+| 1        | 76.218| 2697.96   | -0.586 |-1.570  | 7.218           |
+
+: DBSCAN cluster table {tbl-colwidths="[75,25]"}
+
+
+
+
+The elbow plot shows that choosing three clusters is ideal for this dataset. So, for K-means clustering, three clusters were adopted. The cluster result plot and cluster table show some insights. 
+The first k-means clustering plots show that each cluster divides data points relatively well. Three clusters show clear boundaries for each cluster, which indicates that the cluster has been well divided. 
+Second, a cluster table shows the mean of each pitching index by cluster. The first cluster has good speed, vertical movement, and release extension. The second cluster's spin rate and horizontal movement have a low mean compared to others. The Third cluster has a good spin rate and horizontal movement but the lowest velocity.  
+
+The DBSCAN plot shows that there is less noise; only a few noise points can be observed. This indicates that the data also fits well in DBSCAN. It can be interpreted by explaining both noise and clusters.
+Based on the plot, most points were captured in the second cluster, with good mean speed and vertical movement. Other clusters show potential noise level, which is quite understandable that there were speeds less than 80 in summary statistics. 
+
+
+
+3. **Conclusion:**
+   
+Clustering analysis gives interesting insights into real-world implications. In K-means clustering, the first clusters are pitchers with a good fastball, the secondcluster tends to have the most average pitchers, and the third cluster tends to use the breaking ball most often. 
+
+Both clusters give good results for this dataset. But for further analysis of clusters, k-means clustering seems appropriate because, first, in DBSCAN, there is less noise, so k-means can be a stable and faster algorithm. Also, further analysis is about analyzing the characteristics of each cluster with computing probability, so for this question, using k-means clustering is appropriate. 
+

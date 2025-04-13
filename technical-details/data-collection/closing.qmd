@@ -1,0 +1,14 @@
+# Summary
+
+## Challenges
+Since the Python wrapper grants access and retrieves all the required data regarding technical aspects, it has less difficulty in technical aspects; however, a possible issue is with data size. Since this dataset has more than 700,000 observations with 113 features for just one MLB season, the dataset itself is quite computationally expensive, especially if it goes to multiple seasons(for example, if it goes more than 3 seasons, the dataset will expect approximately 2 million observations). So, further analysis with various seasons might need a machine that can handle high computational costs.
+
+## Benchmarks
+
+It is not surprising that the dataset is very large since there are more than 120 pitches per game on average, around 10-15 games in one day and 162 games in the season. Since this dataset holds almost every live statistic, it is expected to have a messy data format, which is needed to handle more procedures before using various statistical methods. However it contains all the information needed, so it is expected to retrieve all the features needed for analysis. 
+
+
+## Conclusion and Future Steps
+
+Collecting a dataset is always a starting point for analysis. Now that data has been collected successfully, it is possible to go to the next phase, applying machine learning algorithms. However, a data cleaning process is needed before going to further steps. In the dataset, there are irrelevant features for research questions, so there is no reason to keep these. Also, data types, missing values, and overall summary statistics should be checked before going to the next phase. Also, it is important to check outliers and distribution before applying various methods.  So, the next step will be related to these procedures. This data cleaning process is expected to prepare the data for analysis "really," specifically for the research question. 
+
